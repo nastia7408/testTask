@@ -31,9 +31,25 @@ function App() {
               </div>
             </div>
             <p>The average nightly price is $180</p>
-            <div className="histogram">
-              <hr />
+            <div className="histogram-container">
+              <div className="bars">
+                {Array.from({ length: 60 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="bar"
+                    style={{
+                      height: `${Math.random() * 60 + 10}px`,
+                    }}
+                  ></div>
+                ))}
+              </div>
+
+              <div className="range-line">
+                <input type="range" min="0" max="100" defaultValue="50" className="range" />
+              </div>
+
             </div>
+
 
           </div>
           <div className="conteinerprice">

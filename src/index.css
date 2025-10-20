@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
 }
+
+/* FILTERS*/
+
 h1 {
   font-family: "Inter", sans-serif;
   font-size: 26px;
@@ -23,6 +26,8 @@ hr {
   border: none;
   font-size: 30px;
 }
+
+/* PRICE RANGE*/
 
 .pricerange-header {
   display: flex;
@@ -62,32 +67,6 @@ hr {
 .toggle-switch .toggle-knob.dark {
   left: 37px;
 }
-
-body.dark-mode {
-  background-color: #1c1b1b;
-  h1 {
-    color: #edeeef;
-  }
-  hr {
-    border-top: 2px solid #575757;
-  }
-  p {
-    color: #edeeef;
-  }
-  .price {
-    background-color: #edeeef;
-  }
-  .toggle-switch {
-    background-color: #707070;
-  }
-  .pricetext {
-    color: #545555;
-  }
-  .priceamount {
-    color: #4b4b4b;
-  }
-}
-
 .pricerange p {
   margin-top: 2px;
   text-align: left;
@@ -124,4 +103,86 @@ p {
   color: #4b4b4b;
   font-weight: bold;
   margin: 10px 14px 14px 24px;
+}
+
+body.dark-mode {
+  background-color: #1c1b1b;
+  h1 {
+    color: #edeeef;
+  }
+  hr {
+    border-top: 2px solid #575757;
+  }
+  p {
+    color: #edeeef;
+  }
+  .price {
+    background-color: #edeeef;
+  }
+  .toggle-switch {
+    background-color: #707070;
+  }
+  .pricetext {
+    color: #545555;
+  }
+  .priceamount {
+    color: #4b4b4b;
+  }
+}
+
+/* Histogram*/
+
+.histogram-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 60px auto;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100px;
+  gap: 2px;
+}
+
+.bar {
+  width: 6px;
+  background: #d5d5d5;
+  border-radius: 2px 2px 0 0;
+}
+
+.range-line {
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.range {
+  position: absolute;
+  width: 100%;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 2px;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+}
+
+.range::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  border: none;
 }
