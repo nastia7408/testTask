@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import Dropdown from './Dropdown'
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -63,7 +64,73 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="list"></section>
+        <section className="list">
+          <h1 className="bikesfound">436 bikes found</h1>
+          <div className="category">
+            <p>Order by</p>
+            <div className="categoryblock">
+              <button>Lowest price</button>
+              <button>Closest</button>
+              <button>Newest Listings</button>
+              <button>Specification</button>
+              <button>Retailer</button>
+
+            </div>
+
+          </div>
+          <div className="pages"></div>
+          <div className="listbikes">
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+            <article className="bikescard">
+              <div className="textblock">
+                <p className="biketype">Road / Racing</p>
+                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
+                <p className="bikecity">Salisbury</p>
+              </div>
+              <p className="bikeprice">$450.00</p>
+            </article>
+
+          </div>
+        </section>
       </main>
 
     </>

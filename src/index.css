@@ -186,3 +186,72 @@ body.dark-mode {
   height: 0;
   border: none;
 }
+
+.bikesfound {
+  text-align: left;
+  margin-top: 50px;
+}
+/* CATEGORY*/
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  height: 59px;
+  padding: 0px 10px;
+  p {
+    font-family: "Inter", sans-serif;
+    font-size: 18px;
+    color: #989898;
+  }
+  button {
+    background-color: #ffffff;
+    border: 1px solid #c7c7c7;
+    height: 39px;
+    border-radius: 35px;
+    margin-left: 20px;
+    padding: 0px 18px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #6b7280;
+  }
+}
+/* BIKES CARD*/
+.bikescard {
+  border-radius: 5px;
+  height: 105px;
+  text-align: left;
+  background-color: #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.biketype {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  margin: 24px 0px 0px 24px;
+}
+.bikecity {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: #6b7280;
+  margin: 0px 0px 24px 24px;
+}
+.bikename {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+  color: #000000;
+  margin: 0px 0px 0px 24px;
+}
+.bikeprice {
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 27px;
+  color: #000000;
+  margin: 0px 24px 0px 0px;
+}
