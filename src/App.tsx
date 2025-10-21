@@ -38,19 +38,7 @@ function App() {
     setCurrentPage(1);
   };
 
-  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMinPrice(Number(e.target.value));
-    setCurrentPage(1);
-  };
 
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaxPrice(Number(e.target.value));
-    setCurrentPage(1);
-  };
-  const handleHistogramChange = (min: number, max: number) => {
-    console.log('Selected range:', min, max);
-
-  };
 
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
