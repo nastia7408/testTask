@@ -128,6 +128,33 @@ body.dark-mode {
   .priceamount {
     color: #4b4b4b;
   }
+  .category {
+    p {
+      color: #989898;
+    }
+  }
+  .pages {
+    button {
+      background-color: #1c1b1b;
+      border: 1px solid#575757;
+      color: #575757;
+    }
+  }
+  input {
+    background-color: #1c1b1b;
+    color: #575757;
+    border: 1px solid #575757;
+  }
+  .biketype {
+    color: #6b7280;
+  }
+  .bikecity {
+    color: #6b7280;
+  }
+
+  .bikeprice {
+    color: #000000;
+  }
 }
 
 /* Histogram*/
@@ -198,8 +225,8 @@ body.dark-mode {
   align-items: center;
   background-color: #f3f3f3;
   border-radius: 5px;
-  height: 59px;
-  padding: 0px 10px;
+  height: auto;
+  padding: 10px 10px;
   p {
     font-family: "Inter", sans-serif;
     font-size: 18px;
@@ -217,6 +244,53 @@ body.dark-mode {
     color: #6b7280;
   }
 }
+/* PAGES BLOCK*/
+.pagesblock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pages {
+  margin: 24px 0px;
+  button {
+    background-color: #ffffff;
+    border: 1px solid #c7c7c7;
+    height: 31px;
+    border-radius: 6px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #000000;
+    margin: 5px;
+    padding: 6px 12px;
+    text-align: center;
+  }
+}
+.pagesrange {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 10px;
+  p {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #656565;
+  }
+  input {
+    background-color: #e5e7eb;
+
+    height: 31px;
+    width: 44px;
+    border-radius: 6px;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    color: #656565;
+    text-align: center;
+    border: none;
+  }
+}
+
 /* BIKES CARD*/
 .bikescard {
   border-radius: 5px;
@@ -254,4 +328,22 @@ body.dark-mode {
   font-size: 27px;
   color: #000000;
   margin: 0px 24px 0px 0px;
+}
+
+@media (max-width: 768px) {
+  /* CATEGORY*/
+  .category {
+    button {
+      height: 20px;
+      margin-left: 10px;
+      margin-top: 5px;
+      padding: 0px 10px;
+    }
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .bikeprice {
+    font-size: 20px;
+  }
 }

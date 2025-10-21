@@ -3,6 +3,11 @@ import './App.css'
 import Dropdown from './Dropdown'
 
 function App() {
+  const [value, setValue] = useState(10);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value));
+  };
   const [dark, setDark] = useState(false);
 
   const toggleDark = () => {
@@ -78,7 +83,24 @@ function App() {
             </div>
 
           </div>
-          <div className="pages"></div>
+          <div className="pagesblock">
+            <div className="pages">
+              <button>First</button>
+              <button>Prev</button>
+              <button>1</button>
+              <button>2</button>
+              <button>3</button>
+              <button>4</button>
+              <button>Next</button>
+              <button>Last</button>
+            </div>
+            <div className="pagesrange">
+              <p>Results per page</p>
+              <input type="number" name="number" />
+            </div>
+
+
+          </div>
           <div className="listbikes">
             <article className="bikescard">
               <div className="textblock">
