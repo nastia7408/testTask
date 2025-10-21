@@ -97,12 +97,28 @@ p {
   color: #6b7280;
   margin: 20px 14px 0px 24px;
 }
-.priceamount {
+.currency {
   font-family: "Inter", sans-serif;
   font-size: 28px;
   color: #4b4b4b;
   font-weight: bold;
-  margin: 10px 14px 14px 24px;
+  margin: 10px 0px 14px 24px;
+}
+.priceamount-input {
+  border: none;
+  outline: none;
+  background: none;
+  width: auto;
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+  color: #4b4b4b;
+  font-weight: bold;
+  margin: 10px 14px 14px 0px;
+}
+.priceamount-input::-webkit-outer-spin-button,
+.priceamount-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 body.dark-mode {
@@ -243,10 +259,14 @@ body.dark-mode {
     font-size: 16px;
     color: #6b7280;
   }
+  button:hover {
+    background-color: #777777;
+    color: #e1e1e1;
+  }
 }
 .categoryblock button.active {
-  background-color: #d1d5db;
-  color: #000000;
+  background-color: #777777;
+  color: #e1e1e1;
   border: 1px solid #a1a1a1;
 }
 .nobikes {
@@ -314,6 +334,9 @@ body.dark-mode {
     padding: 6px 12px;
     text-align: center;
   }
+  button:hover {
+    background-color: #f3f4f6;
+  }
 }
 .pagesrange {
   display: flex;
@@ -338,6 +361,10 @@ body.dark-mode {
     text-align: center;
     border: none;
   }
+}
+.pagesblock button.active {
+  background-color: #f3f4f6;
+  color: #000000;
 }
 
 /* BIKES CARD*/

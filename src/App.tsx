@@ -3,24 +3,12 @@ import './App.css'
 import Dropdown from './Dropdown'
 
 function App() {
-  const [value, setValue] = useState(10);
   const [dark, setDark] = useState(false);
   const [specOpen, setSpecOpen] = useState(false);
   const [selectedSpecs, setSelectedSpecs] = useState<string[]>([]);
+  const [filter, setFilter] = useState<string | null>(null);
 
   const specs = ["Road / Racing", "Electric / e-Bike", "Mountain / Trail", "Gravel / Adventure", "Hubrid / Commuter"];
-
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value));
-  };
-
-
-  const toggleDark = () => {
-    setDark(!dark);
-    document.body.classList.toggle("dark-mode", !dark);
-  };
-
 
   const [bikes] = useState([
     { type: ["Road / Racing"], name: "Cube Reaction Pro", city: "Kyiv", price: 2500 },
@@ -29,27 +17,16 @@ function App() {
     { type: ["Road / Racing"], name: "Scott Scale 960", city: "Kharkiv", price: 2700 },
   ]);
 
+  const [minPrice, setMinPrice] = useState<number | undefined>(0);
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(10000);
 
-  const [filter, setFilter] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
 
-
-  const handleFilterClick = (type: string) => {
-
-    setFilter((prev) => (prev === type ? null : type));
+  const toggleDark = () => {
+    setDark(!dark);
+    document.body.classList.toggle("dark-mode", !dark);
   };
-  const filteredBikes = bikes.filter(bike => {
-
-    if (selectedSpecs.length > 0) {
-      return bike.type.some(spec => selectedSpecs.includes(spec));
-    }
-    return true;
-  });
-
-  const sortedBikes = filter === "price"
-    ? [...filteredBikes].sort((a, b) => a.price - b.price)
-    : filter === "closest" || filter === "newest" || filter === "retailer"
-      ? []
-      : filteredBikes;
 
   const toggleSpec = () => setSpecOpen(prev => !prev);
 
@@ -57,6 +34,55 @@ function App() {
     setSelectedSpecs(prev =>
       prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]
     );
+    setCurrentPage(1);
+  };
+
+  const handleFilterClick = (type: string) => {
+    setFilter(prev => (prev === type ? null : type));
+    setCurrentPage(1);
+  };
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMinPrice(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Number(e.target.value);
+    if (value > 0) setItemsPerPage(value);
+    setCurrentPage(1);
+  };
+
+
+  const filteredBikes = bikes.filter(bike => {
+    const matchesSpec = selectedSpecs.length === 0 || bike.type.some(spec => selectedSpecs.includes(spec));
+    const matchesPrice = (minPrice === undefined || bike.price >= minPrice) &&
+      (maxPrice === undefined || bike.price <= maxPrice);
+    return matchesSpec && matchesPrice;
+  });
+
+
+  const sortedBikes = filter === "price"
+    ? [...filteredBikes].sort((a, b) => a.price - b.price)
+    : filter === "closest" || filter === "newest" || filter === "retailer"
+      ? []
+      : filteredBikes;
+
+  const totalPages = Math.ceil(sortedBikes.length / itemsPerPage);
+  const paginatedBikes = sortedBikes.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const goToPage = (page: number) => {
+    if (page < 1) page = 1;
+    if (page > totalPages) page = totalPages;
+    setCurrentPage(page);
   };
 
 
@@ -81,7 +107,12 @@ function App() {
                 </div>
               </div>
             </div>
-            <p>The average nightly price is $180</p>
+            <p>
+              The average nightly price is $
+              {filteredBikes.length > 0
+                ? Math.round(filteredBikes.reduce((sum, bike) => sum + bike.price, 0) / filteredBikes.length)
+                : 0}
+            </p>
             <div className="histogram-container">
               <div className="bars">
                 {Array.from({ length: 60 }).map((_, i) => (
@@ -106,11 +137,23 @@ function App() {
           <div className="conteinerprice">
             <div className="price">
               <p className="pricetext">Min price</p>
-              <p className="priceamount">$60</p>
+              <span className="currency">$</span>
+              <input
+                type="number"
+                value={minPrice}
+                onChange={(e) => setMinPrice(Number(e.target.value))}
+                className="priceamount-input"
+              />
             </div>
             <div className="price">
               <p className="pricetext">Max price</p>
-              <p className="priceamount">$60</p>
+              <span className="currency">$</span>
+              <input
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="priceamount-input"
+              />
             </div>
           </div>
         </section>
@@ -172,25 +215,34 @@ function App() {
           </div>
           <div className="pagesblock">
             <div className="pages">
-              <button>First</button>
-              <button>Prev</button>
-              <button>1</button>
-              <button>2</button>
-              <button>3</button>
-              <button>4</button>
-              <button>Next</button>
-              <button>Last</button>
+              <button onClick={() => goToPage(1)}>First</button>
+              <button onClick={() => goToPage(currentPage - 1)}>Prev</button>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <button
+                  key={i + 1}
+                  className={currentPage === i + 1 ? "active" : ""}
+                  onClick={() => goToPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button onClick={() => goToPage(currentPage + 1)}>Next</button>
+              <button onClick={() => goToPage(totalPages)}>Last</button>
             </div>
             <div className="pagesrange">
               <p>Results per page</p>
-              <input type="number" name="number" />
+              <input
+                type="number"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+                min={1}
+              />
             </div>
-
-
           </div>
+
           <div className="listbikes">
             {sortedBikes.length > 0 ? (
-              sortedBikes.map((bike) => (
+              paginatedBikes.map((bike) => (
                 <article className="bikescard" key={bike.name}>
                   <div className="textblock">
                     <p className="biketype">{bike.type}</p>
