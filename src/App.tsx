@@ -4,16 +4,61 @@ import Dropdown from './Dropdown'
 
 function App() {
   const [value, setValue] = useState(10);
+  const [dark, setDark] = useState(false);
+  const [specOpen, setSpecOpen] = useState(false);
+  const [selectedSpecs, setSelectedSpecs] = useState<string[]>([]);
+
+  const specs = ["Road / Racing", "Electric / e-Bike", "Mountain / Trail", "Gravel / Adventure", "Hubrid / Commuter"];
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(Number(e.target.value));
   };
-  const [dark, setDark] = useState(false);
+
 
   const toggleDark = () => {
     setDark(!dark);
     document.body.classList.toggle("dark-mode", !dark);
   };
+
+
+  const [bikes] = useState([
+    { type: ["Road / Racing"], name: "Cube Reaction Pro", city: "Kyiv", price: 2500 },
+    { type: ["Road / Racing"], name: "Trek Marlin 7", city: "Lviv", price: 1800 },
+    { type: ["Road / Racing"], name: "Giant Talon 1", city: "Odessa", price: 2200 },
+    { type: ["Road / Racing"], name: "Scott Scale 960", city: "Kharkiv", price: 2700 },
+  ]);
+
+
+  const [filter, setFilter] = useState<string | null>(null);
+
+
+  const handleFilterClick = (type: string) => {
+
+    setFilter((prev) => (prev === type ? null : type));
+  };
+  const filteredBikes = bikes.filter(bike => {
+
+    if (selectedSpecs.length > 0) {
+      return bike.type.some(spec => selectedSpecs.includes(spec));
+    }
+    return true;
+  });
+
+  const sortedBikes = filter === "price"
+    ? [...filteredBikes].sort((a, b) => a.price - b.price)
+    : filter === "closest" || filter === "newest" || filter === "retailer"
+      ? []
+      : filteredBikes;
+
+  const toggleSpec = () => setSpecOpen(prev => !prev);
+
+  const toggleSpecItem = (item: string) => {
+    setSelectedSpecs(prev =>
+      prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]
+    );
+  };
+
 
   return (
     <>
@@ -70,18 +115,60 @@ function App() {
           </div>
         </section>
         <section className="list">
-          <h1 className="bikesfound">436 bikes found</h1>
+          <h1 className="bikesfound">
+            {sortedBikes.length > 0
+              ? `${sortedBikes.length} bikes found`
+              : "No bikes found"}
+          </h1>
+
           <div className="category">
             <p>Order by</p>
             <div className="categoryblock">
-              <button>Lowest price</button>
-              <button>Closest</button>
-              <button>Newest Listings</button>
-              <button>Specification</button>
-              <button>Retailer</button>
+              <button
+                className={filter === "price" ? "active" : ""}
+                onClick={() => handleFilterClick("price")}
+              >
+                Lowest price
+              </button>
+              <button
+                className={filter === "closest" ? "active" : ""}
+                onClick={() => handleFilterClick("closest")}
+              >
+                Closest
+              </button>
+              <button
+                className={filter === "newest" ? "active" : ""}
+                onClick={() => handleFilterClick("newest")}
+              >
+                Newest Listings
+              </button>
+              <div className="spec-dropdown">
+                <button className={specOpen ? "active" : ""} onClick={toggleSpec}>
+                  Specification
+                </button>
+                {specOpen && (
+                  <div className="spec-list">
+                    {specs.map(spec => (
+                      <label key={spec} className="spec-item">
+                        <span>{spec}</span>
+                        <input
+                          type="checkbox"
+                          checked={selectedSpecs.includes(spec)}
+                          onChange={() => toggleSpecItem(spec)}
+                        />
 
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <button
+                className={filter === "retailer" ? "active" : ""}
+                onClick={() => handleFilterClick("retailer")}
+              >
+                Retailer
+              </button>
             </div>
-
           </div>
           <div className="pagesblock">
             <div className="pages">
@@ -102,58 +189,23 @@ function App() {
 
           </div>
           <div className="listbikes">
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-            <article className="bikescard">
-              <div className="textblock">
-                <p className="biketype">Road / Racing</p>
-                <h2 className="bikename"> Colnago Carbitubo 1991 Carbon Classic with Full Dura Ace</h2>
-                <p className="bikecity">Salisbury</p>
-              </div>
-              <p className="bikeprice">$450.00</p>
-            </article>
-
+            {sortedBikes.length > 0 ? (
+              sortedBikes.map((bike) => (
+                <article className="bikescard" key={bike.name}>
+                  <div className="textblock">
+                    <p className="biketype">{bike.type}</p>
+                    <h2 className="bikename">{bike.name}</h2>
+                    <p className="bikecity">{bike.city}</p>
+                  </div>
+                  <p className="bikeprice">${bike.price}</p>
+                </article>
+              ))
+            ) : (
+              <p className="nobikes">No available bikes by chosen filters</p>
+            )}
           </div>
         </section>
-      </main>
+      </main >
 
     </>
   )
