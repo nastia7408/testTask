@@ -113,12 +113,17 @@ p {
   font-size: 28px;
   color: #4b4b4b;
   font-weight: bold;
-  margin: 10px 14px 14px 0px;
+  margin: 10px 10px 10px 0px;
 }
 .priceamount-input::-webkit-outer-spin-button,
 .priceamount-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.priceamount-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 body.dark-mode {
@@ -149,18 +154,39 @@ body.dark-mode {
       color: #989898;
     }
   }
+  .slider-track {
+    background: #edeeef;
+  }
+  .slider {
+    background: #575757;
+  }
+  .priceamount-input {
+    border: none;
+    outline: none;
+    background: none;
+    width: auto;
+    color: #4b4b4b;
+  }
+  input {
+    background-color: #1c1b1b;
+    color: #edeeef;
+    border: 1px solid #575757;
+  }
+
   .pages {
     button {
       background-color: #1c1b1b;
       border: 1px solid#575757;
       color: #575757;
     }
+    button:hover {
+      background-color: #f3f4f6;
+    }
+    button.active {
+      background-color: #f3f4f6;
+    }
   }
-  input {
-    background-color: #1c1b1b;
-    color: #575757;
-    border: 1px solid #575757;
-  }
+
   .biketype {
     color: #6b7280;
   }
@@ -174,61 +200,6 @@ body.dark-mode {
 }
 
 /* Histogram*/
-
-.histogram-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px;
-  margin: 60px auto;
-}
-
-.bars {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 100px;
-  gap: 2px;
-}
-
-.bar {
-  width: 6px;
-  background: #d5d5d5;
-  border-radius: 2px 2px 0 0;
-}
-
-.range-line {
-  position: absolute;
-  bottom: -20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.range {
-  position: absolute;
-  width: 100%;
-  -webkit-appearance: none;
-  background: transparent;
-  pointer-events: none;
-}
-
-.range::-webkit-slider-runnable-track {
-  height: 4px;
-  background: #ddd;
-  border-radius: 2px;
-}
-.range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 0;
-}
-
-.range::-moz-range-thumb {
-  width: 0;
-  height: 0;
-  border: none;
-}
 
 .bikesfound {
   text-align: left;
@@ -430,5 +401,19 @@ body.dark-mode {
   .category {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .price {
+    width: 50%;
+  }
+
+  .currency {
+    font-size: 20px;
+  }
+  .priceamount-input {
+    font-size: 20px;
+  }
+  .priceamount-wrapper {
+    justify-content: flex-start;
   }
 }

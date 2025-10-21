@@ -1,0 +1,49 @@
+.histogram {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  height: 100px;
+  gap: 2px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  background: #d5d5d5;
+}
+
+.slider {
+  position: relative;
+  height: 6px;
+  margin-top: 20px;
+  background: #ddd;
+  border-radius: 3px;
+}
+
+.slider-track {
+  position: absolute;
+  height: 6px;
+  background: #000;
+  border-radius: 3px;
+  top: 0;
+}
+
+.handle {
+  position: absolute;
+  top: -7px;
+  width: 10px;
+  height: 20px;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.handle.left {
+  left: 0;
+}
+.handle.right {
+  right: 0;
+}

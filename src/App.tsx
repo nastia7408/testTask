@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-import Dropdown from './Dropdown'
+import { bikes as bikeData } from './bikes';
+import HistogramSlider from './HistogramSlider';
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -10,12 +11,7 @@ function App() {
 
   const specs = ["Road / Racing", "Electric / e-Bike", "Mountain / Trail", "Gravel / Adventure", "Hubrid / Commuter"];
 
-  const [bikes] = useState([
-    { type: ["Road / Racing"], name: "Cube Reaction Pro", city: "Kyiv", price: 2500 },
-    { type: ["Road / Racing"], name: "Trek Marlin 7", city: "Lviv", price: 1800 },
-    { type: ["Road / Racing"], name: "Giant Talon 1", city: "Odessa", price: 2200 },
-    { type: ["Road / Racing"], name: "Scott Scale 960", city: "Kharkiv", price: 2700 },
-  ]);
+  const [bikes] = useState(bikeData);
 
   const [minPrice, setMinPrice] = useState<number | undefined>(0);
   const [maxPrice, setMaxPrice] = useState<number | undefined>(10000);
@@ -50,6 +46,10 @@ function App() {
   const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMaxPrice(Number(e.target.value));
     setCurrentPage(1);
+  };
+  const handleHistogramChange = (min: number, max: number) => {
+    console.log('Selected range:', min, max);
+
   };
 
   const handleItemsPerPageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,22 +113,15 @@ function App() {
                 ? Math.round(filteredBikes.reduce((sum, bike) => sum + bike.price, 0) / filteredBikes.length)
                 : 0}
             </p>
-            <div className="histogram-container">
-              <div className="bars">
-                {Array.from({ length: 60 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="bar"
-                    style={{
-                      height: `${Math.random() * 60 + 10}px`,
-                    }}
-                  ></div>
-                ))}
-              </div>
-
-              <div className="range-line">
-                <input type="range" min="0" max="100" defaultValue="50" className="range" />
-              </div>
+            <div className="histogram">
+              <HistogramSlider
+                bikes={bikes}
+                onChange={(minPriceFromSlider, maxPriceFromSlider) => {
+                  setMinPrice(minPriceFromSlider);
+                  setMaxPrice(maxPriceFromSlider);
+                  setCurrentPage(1);
+                }}
+              />
 
             </div>
 
@@ -137,23 +130,27 @@ function App() {
           <div className="conteinerprice">
             <div className="price">
               <p className="pricetext">Min price</p>
-              <span className="currency">$</span>
-              <input
-                type="number"
-                value={minPrice}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
-                className="priceamount-input"
-              />
+              <div className="priceamount-wrapper">
+                <span className="currency">$</span>
+                <input
+                  type="number"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(Number(e.target.value))}
+                  className="priceamount-input"
+                />
+              </div>
             </div>
             <div className="price">
               <p className="pricetext">Max price</p>
-              <span className="currency">$</span>
-              <input
-                type="number"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="priceamount-input"
-              />
+              <div className="priceamount-wrapper">
+                <span className="currency">$</span>
+                <input
+                  type="number"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="priceamount-input"
+                />
+              </div>
             </div>
           </div>
         </section>
